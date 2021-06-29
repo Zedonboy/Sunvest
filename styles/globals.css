@@ -1,16 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: 'Raleway', sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.eclipse1 {
+  border-radius: 50%;
+  position: absolute;
+  width: 49.47px;
+  height: 49.47px;
+  left: 630px;
+  top: 200px;
+  background: linear-gradient(273.54deg, #DADAFF -2.84%, rgba(238, 238, 255, 0) 122.55%);
 }
 
-* {
-  box-sizing: border-box;
+.logo-text {
+  @apply text-white text-lg
+}
+
+.side-nav li{
+  @apply dark:text-white
+}
+.side-nav li .active{
+  @apply text-yellow-500
+}
+
+.menu li {
+  @apply text-white uppercase text-sm
+}
+
+.menu li .active {
+  @apply text-yellow-500
+}
+
+.market-cat li{
+  @apply font-semibold dark:text-white cursor-pointer flex-shrink-0 border-b-4 py-2 border-transparent
+}
+
+.market-cat li button {
+  @apply font-semibold
+}
+
+.market-cat li:hover{
+  @apply border-blue-600
+}
+
+.market-cat .active{
+  @apply border-blue-600
+}
+
+.herobg{
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(/images/hero_bg.png);
+}
+
+.sectionbg {
+  background-image: url(/images/shapes.png);
 }
