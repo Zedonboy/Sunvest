@@ -218,7 +218,7 @@ export default function Hero() {
           enterFrom="opacity-0"
           enterTo="opacity-100"
         >
-          <section className=" flex p-8 flex-col w-full md:w-1/2">
+          <section className=" flex p-8 flex-col w-full lg:w-1/2">
             <section className="text-white flex items-center">
               <span>
                 <svg
@@ -268,7 +268,7 @@ export default function Hero() {
           </section>
         </Transition>
 
-        <section className="w-full md:w-1/2 p-8">
+        <section className="w-full lg:w-1/2 p-8">
           <Transition
             as={Fragment}
             show={true}

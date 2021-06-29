@@ -99,7 +99,7 @@ export default function Home() {
         <h1 className="text-blue-600 text-center mt-14 font-bold text-lg">
           Let&apos;s explore the Investments that are top-selling
         </h1>
-        <ul className="hidden md:flex space-x-16 mt-12 overflow-auto market-cat">
+        <ul className="hidden lg:flex space-x-16 mt-12 overflow-auto market-cat">
           <li>
             <button>Commercial Projects</button>
           </li>
@@ -113,7 +113,7 @@ export default function Home() {
             <button>Electrification Projects</button>
           </li>
         </ul>
-        <section className="hidden md:flex mt-8">
+        <section className="hidden lg:flex mt-8">
           <div className="flex items-center pr-6">
             <button className="rounded-full w-16 h-16 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
               <svg
