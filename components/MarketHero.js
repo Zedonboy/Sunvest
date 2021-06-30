@@ -2,17 +2,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import Head from "next/head"
+import Head from "next/head";
 import Link from "next/link";
-export default function Hero() {
+
+export default function MarketHero() {
   let [dark, setDark] = useState(false);
   return (
-    <section className="dark:bg-gray-800 bg-cpurple p-2 md:px-32 min-h-screen pb-24">
-      <Head>
-        {dark ? (
-           <meta name="theme-color" content="#1f2937" />
-        ) : null}
-      </Head>
+    <section className="dark:bg-gray-800 pb-0">
+      <Head>{dark ? <meta name="theme-color" content="#1f2937" /> : null}</Head>
       {/* <section className="hero-bg">
 
       </section> */}
@@ -31,9 +28,9 @@ export default function Hero() {
             >
               <Popover.Panel
                 static
-                className="transition-transform shadow-2xl transform dark:bg-gray-800 flex flex-col fixed h-screen top-0 left-0 bottom-0 bg-white w-10/12"
+                className="transition-transform z-10 shadow-2xl transform dark:bg-gray-800 flex flex-col fixed h-screen top-0 left-0 bottom-0 bg-white w-10/12"
               >
-                <section className="flex justify-end">
+                <section className="flex dark:bg-gray-800 bg-white justify-end">
                   <Popover.Button className="mt-4 dark:text-white mr-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -52,51 +49,63 @@ export default function Hero() {
                   </Popover.Button>
                 </section>
                 <Link passHref href="/" className="flex justify-center">
-                  <img alt="logo" src="/images/logo-dark.png"/>
+                  <img alt="logo" src="/images/logo-dark.png" />
                 </Link>
                 <ul className="flex side-nav flex-col items-center space-y-4">
-                <li>
-                  <a className="active" href="/home">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a className="" href="/home">
-                    How it works
-                  </a>
-                </li>
-                <li>
-                  <a className="" href="/home">
-                    Solar Projects
-                  </a>
-                </li>
-                <li>
-                  <Link href="/market">
-                    MarketPlace
-                  </Link>
-                </li>
-                <li>
-                  <a className="" href="/home">
-                    Contact Us
-                  </a>
-                </li>
+                  <li>
+                    <a className="active" href="/home">
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a className="" href="/home">
+                      How it works
+                    </a>
+                  </li>
+                  <li>
+                    <a className="" href="/home">
+                      Solar Projects
+                    </a>
+                  </li>
+                  <li>
+                    <Link href="/market">MarketPlace</Link>
+                  </li>
+                  <li>
+                    <a className="" href="/home">
+                      Contact Us
+                    </a>
+                  </li>
+                  <button className="bg-blue-600 rounded text-white px-4 py-2 text-sm uppercase">
+                    Sign In
+                  </button>
+                  <button className="border rounded border-blue-600 dark:text-white text-sm uppercase px-4 py-2">
+                    Sign Up
+                  </button>
                 </ul>
               </Popover.Panel>
             </Transition>
-            <nav className="flex py-4 justify-between">
-              <a href="/" className="flex items-center space-x-3">
+            <nav className="flex p-2 md:px-32 py-4 max-h-[4.8rem] items-center justify-between">
+              <a passHref href="/" className="flex items-center space-x-3">
                 <span>
-                  <img
-                    alt="fdnv"
-                    className="h-12 w-12"
-                    src="/images/logo.png"
-                  />
+                  {dark ? (
+                    <img
+                      alt="fdnv"
+                      className="h-12 w-12"
+                      src="/images/logo.png"
+                    />
+                  ) : (
+                    <img
+                      alt="fdnv"
+                      className="h-12 w-12"
+                      src="/images/logo-s-dark.png"
+                    />
+                  )}
                 </span>
-                <span className="logo-text">SunVest.energy</span>
+                <span className="logo-text-alt">SunVest.energy</span>
               </a>
               <div className="flex md:hidden items-center space-x-2">
                 <button
-                  className="text-white"
+                  className="dark:text-white"
                   onClick={(e) => {
                     let html = document.getElementsByTagName("html").item(0);
                     if (dark) {
@@ -134,7 +143,7 @@ export default function Hero() {
                 </button>
 
                 <Popover.Button>
-                  <button className="text-white mr-4">
+                  <button className="mr-4 dark:text-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-8 w-8"
@@ -153,7 +162,7 @@ export default function Hero() {
                 </Popover.Button>
               </div>
 
-              <ul className="md:flex hidden menu space-x-6">
+              <ul className="md:flex hidden menu-alt space-x-6">
                 <li>
                   <button
                     onClick={(e) => {
@@ -218,52 +227,31 @@ export default function Hero() {
                   </a>
                 </li>
               </ul>
+              <section className="md:flex hidden space-x-2">
+                <button className="bg-blue-600 rounded text-white px-4 py-2 text-sm uppercase">
+                  Sign In
+                </button>
+                <button className="border rounded border-blue-600 dark:text-white text-sm uppercase px-4 py-2">
+                  Sign Up
+                </button>
+              </section>
             </nav>
           </>
         )}
       </Popover>
-      <section className="flex items-center flex-wrap min-h-[80vh]">
-        <Transition
-          as={Fragment}
-          show={true}
-          enter="transition-opacity duration-300 ease-in delay-200"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-        >
-          <section className=" flex p-8 flex-col w-full lg:w-1/2">
-            <section className="text-white flex items-center">
-              <span>
+      <section className="flex items-center flex-wrap py-12 md:p-0 h-auto md:h-[70vh]">
+        <section className="w-full h-full relative flex justify-center">
+          <figure className="relative hidden md:block md:w-1/2 h-full">
+            <img
+              alt="fjb"
+              className="object-cover w-full h-full"
+              src="/images/market-image.png"
+            />
+            <div className="absolute mt-4 ml-4 top-0 left-0 flex">
+              <button className="px-4 rounded-l bg-white shadow text-blue-600 py-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-yellow-500"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
-              </span>
-              <span className="font-light ml-1">
-                Top energy investment company
-              </span>
-            </section>
-            <h1 className="text-white font-bold text-2xl md:text-5xl leading-snug mt-2">
-              Invest in Solar,
-              <br /> Empower A Business,
-              <br /> Earn A Profit
-            </h1>
-            <p className="text-white font-light mt-2">
-              Join us in the revolution to help Nigerian businesses escape power
-              problems and run more profitability
-            </p>
-            <a
-              href="/learn-us"
-              className="flex text-white items-center space-x-4 font-bold mt-4"
-            >
-              <span>Learn More</span>
-              <span className="rounded-full border-2 border-white">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -272,69 +260,115 @@ export default function Hero() {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   />
                 </svg>
-              </span>
-            </a>
+              </button>
+              <button className="px-4 rounded-r bg-white shadow text-blue-600 py-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </button>
+            </div>
+          </figure>
+          <section className="w-full p-4 md:p-12 md:w-1/2 flex flex-col justify-center items-center">
+            <h1 className="text-blue-600 font-bold text-4xl md:text-6xl">
+              Marketplace
+            </h1>
+            <p className="font-medium mt-2 text-2xl md:text-4xl leading-10 dark:text-white">
+              Let’s find a solar project that’s perfect for you.
+            </p>
+            <p className="font-normal dark:text-white mt-4 text-lg md:text-xl leading-8">
+              We are here to help you find right the place for your energy
+              investments.
+            </p>
+            <div></div>
           </section>
-        </Transition>
-
-        <section className="w-full lg:w-1/2 p-8">
-          <Transition
-            as={Fragment}
-            show={true}
-            enter="transition-transform transform duration-500 ease-in-out delay-700"
-            enterFrom="scale-0"
-            enterTo="scale-100"
-          >
-            <section className=" scal bg-white w-full md:w-10/12 flex rounded-3xl p-4">
-              <section className="py-6 w-full pl-2 pr-6">
-                <p className="font-extrabold text-2xl text-center">
-                  Get started now
-                </p>
-                <form className="flex flex-col mt-8 space-y-5">
-                  <input
-                    className="border-gray-300"
-                    type="text"
-                    placeholder="Name"
-                  />
-                  <input
-                    className="border-gray-300"
-                    type="email"
-                    placeholder="Email"
-                  />
-                  <input
-                    className="border-gray-300"
-                    type="tel"
-                    placeholder="Phone Number"
-                  />
-                  <input
-                    className="border-gray-300"
-                    type="text"
-                    placeholder="Company Name"
-                  />
-                  <div>
-                    <button
-                      type="submit"
-                      className="bg-blue-600 text-white shadow-md font-semibold rounded-full px-4 py-2 w-[7.2rem]"
-                    >
-                      Sign up
-                    </button>
-                  </div>
-                </form>
-                <div className="mt-4">
-                  <span className="text-gray-400">
-                    Have an account?{" "}
-                    <a href="" className="text-purple-600">
-                      Sign In
-                    </a>
-                  </span>
-                </div>
-              </section>
-              <section className="w-0 md:w-20 rounded-full bg-[#bbbcef]"></section>
+          <section className="absolute hidden bg-white dark:bg-gray-800 border-blue-600 border shadow bottom-0 w-8/12 py-4 rounded md:flex justify-evenly">
+            <section className="flex px-2 space-x-2 text-gray-500 rounded bg-gray-100 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              <select className="rounded-md bg-gray-100 border-transparent">
+                <option value="" disabled selected>
+                  All Projects
+                </option>
+              </select>
             </section>
-          </Transition>
+            <section className="flex px-2 space-x-2 text-gray-500 rounded bg-gray-100 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                />
+              </svg>
+              <select className="rounded-md bg-gray-100 border-transparent">
+                <option value="" disabled selected>
+                  Type of Projects
+                </option>
+              </select>
+            </section>
+            <section className="flex px-2 space-x-2 text-gray-500 rounded bg-gray-100 items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              <select className="rounded-md bg-gray-100 border-transparent">
+                <option value="" disabled selected>
+                  Location
+                </option>
+              </select>
+            </section>
+            <button className="bg-blue-600 text-white px-8 py-3 rounded">
+              Search
+            </button>
+          </section>
         </section>
       </section>
     </section>

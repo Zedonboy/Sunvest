@@ -22,6 +22,9 @@ body {
   background: linear-gradient(273.54deg, #DADAFF -2.84%, rgba(238, 238, 255, 0) 122.55%);
 }
 
+.logo-text-alt{
+  @apply dark:text-white text-lg
+}
 .logo-text {
   @apply text-white text-lg
 }
@@ -30,6 +33,14 @@ body {
   @apply dark:text-white
 }
 .side-nav li .active{
+  @apply text-yellow-500
+}
+
+.menu-alt li{
+  @apply dark:text-white uppercase text-sm
+}
+
+.menu-alt li .active{
   @apply text-yellow-500
 }
 

@@ -4,6 +4,8 @@ import Image from "next/image";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
 import Project from "../components/Project";
+import Link from "next/link";
+import SubscribeSection from "../components/SubscribeSection";
 
 export default function Home() {
   return (
@@ -46,7 +48,9 @@ export default function Home() {
           </section>
         </section>
       </section>
-      <div className="px-2 md:px-28"><div className="w-full border-b border-gray-200"></div></div>
+      <div className="px-2 md:px-28">
+        <div className="w-full border-b border-gray-200"></div>
+      </div>
       <section className="flex flex-col md:px-32 px-2 dark:bg-gray-800 sectionbg">
         <h1 className="text-blue-500 mt-10 font-bold text-4xl text-center">
           How it Works
@@ -91,10 +95,11 @@ export default function Home() {
               project beneficiary..
             </p>
           </section>
-          
         </section>
       </section>
-      <div className="px-2 md:px-28"><div className="w-full border-b border-gray-200"></div></div>
+      <div className="px-2 md:px-28">
+        <div className="w-full border-b border-gray-200"></div>
+      </div>
       <section className="dark:bg-gray-800 px-2 md:px-10 py-12 flex items-center flex-col bg-[#f7f8fa]">
         <h1 className="text-blue-600 text-center mt-14 font-bold text-lg">
           Let&apos;s explore the Investments that are top-selling
@@ -132,10 +137,16 @@ export default function Home() {
               </svg>
             </button>
           </div>
-          <section className="w-full flex space-x-8">
-            <Project />
-            <Project />
-            <Project />
+          <section className="flex space-x-8">
+            <div className="md:w-[20rem]">
+              <Project />
+            </div>
+            <div className="md:w-[20rem]">
+              <Project />
+            </div>
+            <div className="md:w-[20rem]">
+              <Project />
+            </div>
           </section>
           <div className="flex items-center pl-6">
             <button className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
@@ -157,44 +168,27 @@ export default function Home() {
           </div>
         </section>
 
-        <a className="flex mt-10 text-blue-600 font-medium">
-          Go to Marketplace&nbsp;
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
-        </a>
+        <Link passHref href="/market" className="">
+          <a className="flex mt-10 text-blue-600 font-medium">
+            Go to Marketplace&nbsp;
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </a>
+        </Link>
       </section>
-      <section className="p-12 md:h-[60vh] dark:bg-gray-800 flex flex-col items-center justify-center">
-        <h1 className="text-blue-600 text-center font-bold text-4xl">
-          Working with us are the path to success
-        </h1>
-        <p className="text-center dark:text-white mt-4">
-          Get updated and news on all the new investments for Free and enjoy our
-          platform
-          <br /> with the support of our professional onboarding team.
-        </p>
-        <section className="flex flex-col md:flex-row md:space-x-6 mt-4">
-          <input
-            type="email"
-            className="w-full md:w-56 bg-gray-200"
-            placeholder="Email"
-          />
-          <button className="w-full md:w-auto text-white font-bold text-sm bg-blue-600 rounded-md px-6 py-2">
-            Subscribe
-          </button>
-        </section>
-      </section>
+      <SubscribeSection />
       <section className="md:p-8 p-2 py-12 dark:bg-gray-800 flex flex-col">
         <h1 className="font-semibold mt-12 text-blue-600 text-2xl text-center">
           Working with a diverse global partners
@@ -215,40 +209,38 @@ export default function Home() {
         </section>
         <section className=" mt-8 flex justify-center space-x-2">
           <button className="text-gray-300">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M10 19l-7-7m0 0l7-7m-7 7h18"
-            />
-          </svg>
-          
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 19l-7-7m0 0l7-7m-7 7h18"
+              />
+            </svg>
           </button>
           <p>1/2</p>
           <button className="text-blue-600">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
           </button>
-          
         </section>
       </section>
     </Layout>
