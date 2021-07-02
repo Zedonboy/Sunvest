@@ -77,3 +77,19 @@ body {
 .sectionbg {
   background-image: url(/images/shapes.png);
 }
+
+.shapebg{
+  background-size: contain;
+  background-image: url(/images/shapes-alt.png);
+}
+
+.dbside-nav {
+  @apply flex flex-col space-y-4
+}
+.dbside-nav li{
+  @apply flex items-center space-x-2 pl-12 justify-start px-2 border-r-4 border-transparent
+}
+
+.dbside-nav .active{
+  @apply border-blue-600 text-blue-600
+}

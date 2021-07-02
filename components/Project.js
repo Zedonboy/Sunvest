@@ -1,7 +1,8 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 export default function Project() {
   return (
-    <section className="bg-white dark:bg-gray-700 w-full rounded-2xl p-6">
+    <a href="/project" className="bg-white dark:bg-gray-700 w-full rounded-2xl p-6">
       <figure className="relative h-48">
         <span className="absolute rounded top-0 right-0 mt-6 mr-6 bg-yellow-600 font-bold px-4 py-1 text-xs">
           33% Sold
@@ -61,6 +62,6 @@ export default function Project() {
           Details
         </button>
       </section>
-    </section>
+    </a>
   );
 }
