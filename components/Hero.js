@@ -320,9 +320,12 @@ export default function Hero() {
                 <div className="mt-4">
                   <span className="text-gray-400">
                     Have an account?{" "}
-                    <a href="" className="text-purple-600">
+                    <Link passHref href="/signin">
+                    <a className="text-purple-600">
                       Sign In
                     </a>
+                    </Link>
+                    
                   </span>
                 </div>
               </section>

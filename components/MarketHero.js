@@ -7,10 +7,9 @@ import Link from "next/link";
 import DarkNavBar from "./DarkNavBar";
 
 export default function MarketHero() {
-  let [dark, setDark] = useState(false);
   return (
     <section className="dark:bg-gray-800 pb-0">
-      <Head>{dark ? <meta name="theme-color" content="#1f2937" /> : null}</Head>
+      
       {/* <section className="hero-bg">
 
       </section> */}
