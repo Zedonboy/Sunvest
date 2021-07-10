@@ -1,11 +1,49 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import { Popover, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useCallback, useState } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import SunVestAPI from "../utils/APIlib.ts";
+import {set} from "idb-keyval"
 export default function Hero() {
+  let router = useRouter();
   let [dark, setDark] = useState(false);
+  let [registerContract, setRegisterContract] = useState({});
+  let [loading, setLoading] = useState(false);
+  let [validationError, setValidationError] = useState(null);
+  let cb = useCallback(
+    (e) => {
+      setRegisterContract({
+        ...registerContract,
+        [e.target.name]: e.target.value,
+      });
+    },
+    [registerContract]
+  );
+
+  let submitCB = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      set("user", registerContract).then(v => {
+        router.push("/thank_you")
+      })
+      // let response = await SunVestAPI.registerUser(registerContract);
+      // if (response.ok) {
+      //   let data = await response.json();
+      //   if (data.status && data.status === "failed") {
+      //     setValidationError(data.validation_errors);
+      //   } else {
+      //     router.push("/thank_you");
+      //   }
+      // }
+      setLoading(false);
+      //alert("Error from server");
+    },
+    [registerContract, router]
+  );
   return (
     <section className="dark:bg-gray-800 bg-cpurple p-2 md:px-32 min-h-screen pb-24">
       <Head>{dark ? <meta name="theme-color" content="#1f2937" /> : null}</Head>
@@ -287,31 +325,94 @@ export default function Hero() {
                 <p className="font-extrabold text-2xl text-center">
                   Get started now
                 </p>
-                <form className="flex flex-col mt-8 space-y-5">
+                <form
+                  onSubmit={submitCB}
+                  className="flex flex-col mt-8 space-y-5"
+                >
+                  {validationError?.firstName?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
                   <input
+                    required
+                    name="firstName"
+                    onChange={cb}
                     className="border-gray-300"
                     type="text"
-                    placeholder="Name"
+                    placeholder="First Name"
                   />
+                  {validationError?.lastName?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
                   <input
+                    name="lastName"
+                    required
+                    onChange={cb}
+                    className="border-gray-300"
+                    type="text"
+                    placeholder="Last Name"
+                  />
+                  {validationError?.email?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
+                  <input
+                    name="email"
+                    required
+                    onChange={cb}
                     className="border-gray-300"
                     type="email"
                     placeholder="Email"
                   />
+                  {validationError?.phone?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
                   <input
+                    name="phone"
+                    onChange={cb}
                     className="border-gray-300"
                     type="tel"
                     placeholder="Phone Number"
                   />
+                  {validationError?.password?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
                   <input
+                    name="password"
                     className="border-gray-300"
-                    type="text"
-                    placeholder="Company Name"
+                    type="password"
+                    onChange={cb}
+                    minLength={8}
+                    required
+                    placeholder="Password (Minimum of 8 characters)"
+                  />
+                  {validationError?.password_confirmation?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
+                  <input
+                    name="password_confirmation"
+                    onChange={cb}
+                    minLength={8}
+                    required
+                    className="border-gray-300"
+                    type="password"
+                    placeholder="Retype Password"
                   />
                   <div>
                     <button
+                      disabled={loading}
                       type="submit"
-                      className="bg-blue-600 text-white shadow-md font-semibold rounded-full px-4 py-2 w-[7.2rem]"
+                      className="bg-blue-600 disabled:bg-blue-200 text-white shadow-md font-semibold rounded-full px-4 py-2 w-[7.2rem]"
                     >
                       Sign up
                     </button>
@@ -321,11 +422,8 @@ export default function Hero() {
                   <span className="text-gray-400">
                     Have an account?{" "}
                     <Link passHref href="/signin">
-                    <a className="text-purple-600">
-                      Sign In
-                    </a>
+                      <a className="text-purple-600">Sign In</a>
                     </Link>
-                    
                   </span>
                 </div>
               </section>

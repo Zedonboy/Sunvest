@@ -1,12 +1,18 @@
 import { Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import dynamic from "next/dynamic"
-
+import {set, get} from "idb-keyval"
 const PieComponent = dynamic(() => import("../components/Pie"), {
   ssr: false
 })
 /* eslint-disable @next/next/no-img-element */
 export default function DashboardPage() {
+  const [user, setUser] = useState(null)
+  useEffect(() => {
+    get("user").then(v => {
+      setUser(v)
+    })
+  }, [])
   return (
     <main className="flex">
       <aside className="w-1/5 bg-[#f5f5f5] border-[#eeeeff] border-r-2 h-screen overflow-auto md:flex flex-col hidden">
@@ -170,7 +176,7 @@ export default function DashboardPage() {
               >
                 <div>
                   <p className="font-bold text-2xl md:text-4xl">
-                    Welcome, Temilade{" "}
+                    Welcome, {user?.firstName}{" "}
                   </p>
                   <p className="text-white mt-2 text-base md:text-xl">
                     Good morning, trust you’re fine.

@@ -1,9 +1,31 @@
+import { data } from "autoprefixer";
+import { useEffect, useState } from "react";
+import sunvestAPI from "../utils/APIlib";
 import Project from "./Project";
 export default function ProjectList() {
+  const [page, setPage] = useState(1)
+  const [projects, setProjects] = useState([])
+  useEffect(() => {
+    let fetch = async () => {
+      let resp = await sunvestAPI.getProjects(page)
+      if(resp.ok){
+        let data = await resp.json()
+        setProjects(data.data)
+      }
+    }
+
+    fetch()
+    
+  }, [page])
   return (
     <section className="flex flex-col mt-12 md:flex-row">
       <div className="hidden md:flex items-center pr-6">
-        <button className="rounded-full w-16 h-16 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
+        <button onClick={e => {
+          if(page === 1)return
+          else{
+            setPage(page - 1)
+          }
+        }} className="rounded-full w-16 h-16 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"
@@ -21,23 +43,19 @@ export default function ProjectList() {
         </button>
       </div>
       <section className="flex overflow-auto px-4 pb-16 space-x-8">
-        <div className="w-full md:w-[20rem] flex-shrink-0">
+        {projects.map((v, i) => (
+          <div key={i} className="w-full md:w-[20rem] flex-shrink-0">
            
-          <Project />
+          <Project project={v} />
         </div>
-        <div className="w-full md:w-[20rem] flex-shrink-0">
-           
-          <Project />
-        </div>
-         <div className="w-full md:w-[20rem] flex-shrink-0">
-           
-          <Project />
-        </div>
+        ))}
         
         
       </section>
       <div className="hidden md:flex items-center pl-6">
-        <button className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
+        <button onClick={e => {
+          setPage(page+1)
+        }} className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"

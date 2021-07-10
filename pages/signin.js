@@ -16,7 +16,49 @@
   ```
 */
 
+import { useCallback, useRef, useState } from "react";
+import sunvestAPI from "../utils/APIlib";
+import { useRouter } from "next/router";
+import Cookie from "universal-cookie"
+import {get} from "idb-keyval"
 export default function Example() {
+  let cookieRef = useRef(new Cookie())
+  let [loginContract, setLoginContract] = useState();
+  let router = useRouter();
+  let inputCb = useCallback(
+    (e) => {
+      setLoginContract({ ...loginContract, [e.target.name]: e.target.value });
+    },
+    [loginContract]
+  );
+  let [validationError, setValidationError] = useState(null);
+  let submitCb = useCallback(
+    async (e) => {
+      
+      get("user").then(v => {
+        if(loginContract.email == v.email && loginContract.password == v.password){
+          router.push("/dashboard")
+        }
+      })
+      //let response = await sunvestAPI.loginUser(loginContract);
+      // if (response.ok) {
+      //   let data = await response.json()
+      //   let token = data.token
+      //   cookieRef.current.set("jwt", token, {
+      //     path : "/",
+      //     secure: true
+      //   })
+      //   router.push("/dashboard");
+      // } else {
+      //   let data = await response.json();
+      //   if (data.status === "Error") {
+      //     setValidationError(data?.data);
+      //   }
+      // }
+      e.preventDefault();
+    },
+    [loginContract, router]
+  );
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
@@ -26,19 +68,31 @@ export default function Example() {
             src="/images/logo-dark.png"
             alt="Workflow"
           />
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-          
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Sign in to your account
+          </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form
+          onSubmit={submitCb}
+          className="mt-8 space-y-6"
+          action="#"
+          method="POST"
+        >
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address
               </label>
+              {validationError?.email?.map((v, i) => (
+                <span key={i} className="text-sm text-red-500">
+                  {v}
+                </span>
+              ))}
               <input
                 id="email-address"
                 name="email"
+                onChange={inputCb}
                 type="email"
                 autoComplete="email"
                 required
@@ -50,10 +104,16 @@ export default function Example() {
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
+              {validationError?.password?.map((v, i) => (
+                    <span key={i} className="text-sm text-red-500">
+                      {v}
+                    </span>
+                  ))}
               <input
                 id="password"
                 name="password"
                 type="password"
+                onChange={inputCb}
                 autoComplete="current-password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -70,13 +130,19 @@ export default function Example() {
                 type="checkbox"
                 className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember_me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remember me
               </label>
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+              <a
+                href="#"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
                 Forgot your password?
               </a>
             </div>
@@ -87,12 +153,11 @@ export default function Example() {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              
               Sign in
             </button>
           </div>
         </form>
       </div>
     </div>
-  )
+  );
 }

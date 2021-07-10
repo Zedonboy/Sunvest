@@ -3,11 +3,18 @@ import Head from "next/head";
 import Image from "next/image";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
-import Project from "../components/Project";
+import Project from "../components/Project.tsx";
 import Link from "next/link";
 import SubscribeSection from "../components/SubscribeSection";
+import {url, headers} from "../utils/APIlib"
+import useSWR from 'swr'
+const fetcher = (url) => fetch(url, {
+  headers,
+  method: "GET",
+}).then(res => res.json())
 
 export default function Home() {
+  const { data, error } = useSWR(url, fetcher)
   return (
     <Layout>
       <Hero />
@@ -138,15 +145,11 @@ export default function Home() {
             </button>
           </div>
           <section className="flex space-x-8">
-            <div className="md:w-[20rem]">
-              <Project />
-            </div>
-            <div className="md:w-[20rem]">
-              <Project />
-            </div>
-            <div className="md:w-[20rem]">
-              <Project />
-            </div>
+            {data?.map((p,i) => {
+               <div key={i} className="md:w-[20rem]">
+               <Project project={p}/>
+             </div>
+            })}
           </section>
           <div className="flex items-center pl-6">
             <button className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
