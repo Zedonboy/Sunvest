@@ -45,7 +45,7 @@ export default function ProjectList() {
       <section className="flex overflow-auto px-4 pb-16 space-x-8">
         {projects.map((v, i) => (
           <div key={i} className="w-full md:w-[20rem] flex-shrink-0">
-           
+          
           <Project project={v} />
         </div>
         ))}

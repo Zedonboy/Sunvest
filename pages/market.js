@@ -3,8 +3,8 @@ import MarketHero from "../components/MarketHero";
 import SubscribeSection from "../components/SubscribeSection";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import ProjectList from "../components/ProjectList";
-import Project from "../components/Project"
+import ProjectList from "../components/ProjectList.tsx";
+import Project from "../components/Project.tsx"
 export default function Market() {
   let [showFilter, setShowFilter] = useState(false);
   return (
@@ -228,7 +228,7 @@ export default function Market() {
         <ProjectList />
       </section>
 
-      <section className="flex bg-[#f7f8fa] dark:bg-gray-800 flex-col px-2 md:px-8">
+      {/* <section className="flex bg-[#f7f8fa] dark:bg-gray-800 flex-col px-2 md:px-8">
         <section className="flex justify-center">
           <section className="font-bold flex py-4 justify-between border-b w-full md:w-10/12">
             <h1 className="text-2xl dark:text-white">Other Projects</h1>
@@ -291,7 +291,7 @@ export default function Market() {
           </div>
          
         </section>
-      </section>
+      </section> */}
 
       <SubscribeSection />
     </Layout>
