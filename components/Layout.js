@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-css-tags */
 import Head from "next/head";
 import { useEffect } from "react";
@@ -79,11 +80,11 @@ export default function Layout({ children }) {
 
         <section className="w-full md:w-1/6 mt-8 md:mt-0 flex flex-col space-y-3 text-white">
           <h1 className="font-bold text-2xl">Main Menu</h1>
-          <a>Home</a>
-          <a>About</a>
-          <a>Contact Us</a>
-          <a>Sign In</a>
-          <a>Sign Up</a>
+          <a href="/">Home</a>
+          <a href="how_it_works">About</a>
+          <a href="contact">Contact Us</a>
+          <a href="signin">Sign In</a>
+          <a href="/">Sign Up</a>
         </section>
 
         <section className="w-full md:w-2/6 mt-8 md:mt-0 flex flex-col space-y-3 text-white">

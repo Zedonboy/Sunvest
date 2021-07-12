@@ -90,14 +90,20 @@ export default function Hero() {
                 </Link>
                 <ul className="flex side-nav flex-col items-center space-y-4">
                   <li>
-                    <a className="active" href="/home">
+                    <Link passHref href="/">
+                    <a>
                       Home
                     </a>
+                    </Link>
+                    
                   </li>
                   <li>
-                    <a className="" href="/home">
+                    <Link passHref href="/how_it_works">
+                    <a>
                       How it works
                     </a>
+                    </Link>
+                    
                   </li>
                   <li>
                     <a className="" href="/home">
@@ -118,6 +124,7 @@ export default function Hero() {
               </Popover.Panel>
             </Transition>
             <nav className="flex py-4 justify-between">
+            
               <a href="/" className="flex items-center space-x-3">
                 <span>
                   <img
@@ -227,17 +234,17 @@ export default function Hero() {
                   </button>
                 </li>
                 <li>
-                  <a className="active" href="/home">
+                  <a className="active" href="/">
                     Home
                   </a>
                 </li>
                 <li>
-                  <a className="" href="/home">
+                  <a className="" href="/how_it_works">
                     How it works
                   </a>
                 </li>
                 <li>
-                  <a className="" href="/home">
+                  <a className="" href="">
                     Solar Projects
                   </a>
                 </li>
@@ -245,7 +252,7 @@ export default function Hero() {
                   <Link href="/market">MarketPlace</Link>
                 </li>
                 <li>
-                  <a className="" href="/home">
+                  <a className="" href="/contact">
                     Contact Us
                   </a>
                 </li>
@@ -288,7 +295,7 @@ export default function Hero() {
               problems and run more profitability
             </p>
             <a
-              href="/learn-us"
+              href="/how_it_works"
               className="flex text-white items-center space-x-4 font-bold mt-4"
             >
               <span>Learn More</span>

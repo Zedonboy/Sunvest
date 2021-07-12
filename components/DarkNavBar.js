@@ -50,17 +50,19 @@ export default function DarkNavBar() {
                 </Link>
                 <ul className="flex side-nav flex-col items-center space-y-4">
                   <li>
-                    <a className="active" href="/home">
-                      Home
-                    </a>
+                    <Link passHref href="/">
+                      <a className="active" href="/home">
+                        Home
+                      </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="" href="/home">
-                      How it works
-                    </a>
+                    <Link passHref href="/how_it_works">
+                      <a className="">How it works</a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="" href="/home">
+                    <a className="" href="">
                       Solar Projects
                     </a>
                   </li>
@@ -79,10 +81,11 @@ export default function DarkNavBar() {
                       Sign In
                     </a>
                   </Link>
-
-                  <button className="border rounded border-blue-600 dark:text-white text-sm uppercase px-4 py-2">
-                    Sign Up
-                  </button>
+                  <Link passHref href="/">
+                    <a className="border rounded border-blue-600 dark:text-white text-sm uppercase px-4 py-2">
+                      Sign Up
+                    </a>
+                  </Link>
                 </ul>
               </Popover.Panel>
             </Transition>
@@ -207,20 +210,28 @@ export default function DarkNavBar() {
                   </button>
                 </li>
                 <li>
-                  <a className="active" href="/home">
-                    Home
-                  </a>
+                  <Link passHref href="/">
+                    <a>
+                      Home
+                    </a>
+                  </Link>
                 </li>
                 <li>
+                  <Link passHref href="/how_it_works">
                   <a className="" href="/home">
                     How it works
                   </a>
+                  </Link>
+                  
                 </li>
-                <li>
-                  <a className="" href="/home">
+                {/* <li>
+                  <Link >
+                  <a >
                     Solar Projects
                   </a>
-                </li>
+                  </Link>
+                  
+                </li> */}
                 <li>
                   <Link href="/market">MarketPlace</Link>
                 </li>
@@ -238,9 +249,12 @@ export default function DarkNavBar() {
                     Sign In
                   </a>
                 </Link>
-                <button className="border rounded border-blue-600 dark:text-white text-sm uppercase px-4 py-2">
+                <Link passHref href="/">
+                <a className="border rounded border-blue-600 dark:text-white text-sm uppercase px-4 py-2">
                   Sign Up
-                </button>
+                </a>
+                </Link>
+                
               </section>
             </nav>
           </>
