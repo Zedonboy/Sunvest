@@ -40,8 +40,11 @@ const fetcher = (url) =>
       });
     }
   };
+
+  const data = [
+  ]
 export default function Home() {
-  const { data, error } = useSWR(url, fetcher);
+  //const { data, error } = useSWR(url, fetcher);
   return (
     <Layout>
       <Hero />
@@ -233,9 +236,9 @@ export default function Home() {
           <figure className="flex-shrink-0 w-[270px] overflow-hidden bg-[#f8f8f8] h-28 flex justify-center items-center">
             <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/binance.jpg" />
           </figure>
-          <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
+          {/* <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
             <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/detail.png" />
-          </figure>
+          </figure> */}
           <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
             <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/fate.png" />
           </figure>
