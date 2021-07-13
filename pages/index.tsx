@@ -4,20 +4,21 @@ import Head from "next/head";
 import Image from "next/image";
 import Hero from "../components/Hero";
 import Layout from "../components/Layout";
-import Project from "../components/Project.tsx";
+import Project from "../components/Project";
 import Link from "next/link";
 import SubscribeSection from "../components/SubscribeSection";
 import { url, headers } from "../utils/APIlib";
 import useSWR from "swr";
+import { CProject } from "../components/Project";
 const fetcher = (url) =>
   fetch(url, {
     headers,
     method: "GET",
   }).then((res) => res.json());
 
-  const scrollLeft = () => {
+  const scrollLeft = (id) => {
     //let id = catName.replace(" ", "-").toLowerCase().trim();
-    let elm = document.querySelector("#partners-section");
+    let elm = document.querySelector("#"+id);
     if (elm) {
       let scrollOffset = window.innerWidth;
       elm.scrollBy({
@@ -28,9 +29,9 @@ const fetcher = (url) =>
     }
   };
   
-  const scrollRight = () => {
+  const scrollRight = (id) => {
     
-    let elm = document.querySelector("#partners-section");
+    let elm = document.querySelector("#"+id);
     if (elm) {
       let scrollOffset = window.innerWidth;
       elm.scrollBy({
@@ -41,7 +42,43 @@ const fetcher = (url) =>
     }
   };
 
+  let first : CProject = {
+    slug : "first",
+    img_url: "/images/1.png",
+    location : "Gwarimpa, Abuja",
+    name: "Aqua Safari Resort - 0.4MW | GRID TIED",
+    wattage: "60,000",
+    profit: 15,
+    duration: "12",
+    cost_per_cell: "20,000",
+    percent_sold: 20
+  }
+
+  let sec : CProject = {
+    slug: "sec",
+    img_url: "/images/2.png",
+    percent_sold: 44,
+    name: "Apartment Complex - 100KWp | HYBRID",
+    location: "Lekki, Lagos.",
+    wattage: "60,000",
+    profit: 15,
+    cost_per_cell: "20,000",
+    duration: "12",
+  }
+
+  let third : CProject = {
+    slug: "third",
+    img_url: "/images/2.png",
+    percent_sold: 44,
+    name: "Council for Scientific and Industrial Research (CSIR-CRI) - 0.25MW | GRID-TIED",
+    location: "Lekki, Lagos.",
+    wattage: "60,000",
+    profit: 15,
+    cost_per_cell: "20,000",
+    duration: "12",
+  }
   const data = [
+    first, sec, third
   ]
 export default function Home() {
   //const { data, error } = useSWR(url, fetcher);
@@ -178,11 +215,13 @@ export default function Home() {
             </button>
           </div>
           <section className="flex space-x-8">
-            {data?.map((p, i) => {
-              <div key={i} className="md:w-[20rem]">
+            {data.map((p, i) => (
+              
+              <div key={i} className="md:w-[20rem] bg-white p-6 rounded-2xl">
+                
                 <Project project={p} />
-              </div>;
-            })}
+              </div>
+            ))}
           </section>
           <div className="flex items-center pl-6">
             <button className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
@@ -204,7 +243,7 @@ export default function Home() {
           </div>
         </section>
 
-        <Link passHref href="/market" className="">
+        <Link passHref href="/market">
           <a className="flex mt-10 text-blue-600 font-medium">
             Go to Marketplace&nbsp;
             <svg
@@ -251,7 +290,7 @@ export default function Home() {
         </section>
         <section className=" mt-8 flex justify-center space-x-2">
           <button onClick={e => {
-            scrollRight()
+            scrollRight("partners-section")
             
           }} className="text-gray-300">
             <svg
@@ -271,7 +310,7 @@ export default function Home() {
           </button>
           <p>1/2</p>
           <button onClick={e => {
-            scrollLeft()
+            scrollLeft("partners-section")
           }} className="text-blue-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"

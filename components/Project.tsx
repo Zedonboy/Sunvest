@@ -17,8 +17,28 @@ export interface IProject {
   created_at: string;
 }
 
+// function(){
+//   let startDate = new Date(_project.start_date)
+//   let endData = new Date(_project.end_date)
+//   let elapse = endData.getTime() - startDate.getTime()
+//   let months = elapse * 0.00000000038
+//   return `${Math.round(months)} months`
+// }()
+
+export interface CProject{
+  slug : string
+  percent_sold : number
+  name : string
+  location : string
+  wattage : string
+  profit : number
+  cost_per_cell: string;
+  duration : string
+  img_url: string
+}
+
 export default function Project({project}) {
-  let _project = project as IProject
+  let _project = project as CProject
   return (
     
     <a
@@ -26,11 +46,11 @@ export default function Project({project}) {
       className="bg-white dark:bg-gray-700 w-full rounded-2xl p-6"
     >
       <figure className="relative h-48">
-        <span className="absolute rounded top-0 right-0 mt-6 mr-6 bg-yellow-600 font-bold px-4 py-1 text-xs">
-          33% Sold
+        <span className="absolute rounded top-0 right-0 mt-6 mr-6 bg-[#ff9b21] font-bold px-4 py-1 text-xs">
+          {_project.percent_sold}% Sold
         </span>
         <img
-          src="/images/project-img.png"
+          src={_project.img_url}
           alt="vjfvjfd"
           className="rounded-xl object-cover w-full h-full"
         />
@@ -51,14 +71,14 @@ export default function Project({project}) {
             clipRule="evenodd"
           />
         </svg>
-        <p>Gwarimpa Abuja</p>
+        <p>{_project.location}</p>
       </div>
       <section className="flex mt-4">
         <div className="w-1/2">
           <p className="text-blue-600 font-semibold text-[14px]">
             Unit Available
           </p>
-          <p className="mt-1 dark:text-white">60,000</p>
+          <p className="mt-1 dark:text-white">{_project.wattage}</p>
         </div>
         <div className="w-1/2">
           <p className="text-blue-600 font-semibold text-[14px]">
@@ -76,13 +96,7 @@ export default function Project({project}) {
         </div>
         <div className="w-1/2">
           <p className="text-blue-600 font-semibold text-[14px]">Duration</p>
-          <p className="mt-1 dark:text-white">{function(){
-            let startDate = new Date(_project.start_date)
-            let endData = new Date(_project.end_date)
-            let elapse = endData.getTime() - startDate.getTime()
-            let months = elapse * 0.00000000038
-            return `${Math.round(months)} months`
-          }()}</p>
+          <p className="mt-1 dark:text-white">{_project.duration}</p>
         </div>
       </section>
       <section className="flex mt-6 justify-center">

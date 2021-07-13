@@ -70,7 +70,7 @@ export default function MarketHero() {
             </p>
             <div></div>
           </section>
-          <section className="absolute hidden bg-white dark:bg-gray-800 border-blue-600 border shadow bottom-0 w-8/12 py-4 rounded md:flex justify-evenly">
+          {/* <section className="absolute hidden bg-white dark:bg-gray-800 border-blue-600 border shadow bottom-0 w-8/12 py-4 rounded md:flex justify-evenly">
             <section className="flex px-2 space-x-2 text-gray-500 rounded bg-gray-100 items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +143,7 @@ export default function MarketHero() {
             <button className="bg-blue-600 text-white px-8 py-3 rounded">
               Search
             </button>
-          </section>
+          </section> */}
         </section>
       </section>
     </section>
