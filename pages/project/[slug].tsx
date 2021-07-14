@@ -175,7 +175,7 @@ export default function ProjectDetails({ project }) {
               </section>
             </section>
 
-            <ProjectList />
+            <ProjectList projects={[]} />
           </section>
         </section>
         <SubscribeSection />
