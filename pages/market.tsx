@@ -182,7 +182,7 @@ export default function Market() {
       <section className="flex bg-[#f7f8fa] py-12 md:py-24 dark:bg-gray-800 flex-col px-2 md:px-8">
         <section className="flex justify-center">
           <section className="font-bold flex py-4 justify-between border-b w-full md:w-10/12">
-            <h1 className="text-2xl dark:text-white">Top Selling</h1>
+            <h1 className="text-2xl dark:text-white">Top Selling Projects: Open & Ready for Investment</h1>
             <div className="flex space-x-2">
               <button className="md:hidden rounded-full w-8 h-8 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
                 <svg
@@ -226,7 +226,7 @@ export default function Market() {
       <section className="flex bg-[#f7f8fa] dark:bg-gray-800 flex-col px-2 md:px-8">
         <section className="flex justify-center">
           <section className="font-bold flex py-4 justify-between border-b w-full md:w-10/12">
-            <h1 className="text-2xl dark:text-white">Featured Projects</h1>
+            <h1 className="text-2xl dark:text-white">Installing Solar Panels: Fully Funded Projects</h1>
             <div className="flex space-x-2">
               <button className="md:hidden rounded-full w-8 h-8 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
                 <svg

@@ -29,7 +29,7 @@ export default function HowItWorks() {
         </section>
       </section>
       <section className="flex flex-col">
-        <section className="flex flex-wrap">
+        <section className="flex flex-wrap justify-center">
           <section className="w-full p-4 md:w-1/3 flex justify-center items-center">
             <p className="font-bold text-3xl">About Us</p>
           </section>
@@ -47,7 +47,7 @@ export default function HowItWorks() {
               actions.
             </p>
           </section>
-          <section className="w-full md:w-1/3 p-8">
+          {/* <section className="w-full md:w-1/3 p-8">
             <p className="font-bold text-2xl">What we do</p>
             <p className="text-sm mt-4">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci
@@ -57,9 +57,42 @@ export default function HowItWorks() {
               pulvinar sollicitudin. Non integer in eget mauris. Diam porta sit
               id in pellentesque. Sit rhoncus in vel felis vitae sit.
             </p>
-          </section>
+          </section> */}
         </section>
-        <section className="py-12">
+        <section className="py-12 px-4 md:px-24">
+          <p className="text-center font-bold text-[#315EFB] text-4xl">
+            What We Do
+          </p>
+         <section className="w-full flex flex-wrap">
+           <section className="p-2 w-full text-center md:w-2/6">
+             <p className="text-[#315EFB] font-bold text-center text-2xl">01</p>
+             <p>Innovative funding model that allows solar acquisition with almost zero upfront cost burden</p>
+           </section>
+           <section className="p-2 w-full text-center md:w-2/6">
+             <p className="text-[#315EFB] font-bold text-center text-2xl">02</p>
+             <p>Opportunity for Nigerians and Direct Diasporation (DDI) seeking fair return of profit on their investment</p>
+           </section>
+           <section className="p-2 w-full text-center md:w-2/6">
+             <p className="text-[#315EFB] font-bold text-center text-2xl">03</p>
+             <p>
+             Tokenised system providing participation in crowdfunding with as little as N5000 or $12
+             </p>
+           </section>
+           <section className="p-2 w-full text-center md:w-2/6">
+             <p className="text-[#315EFB] font-bold text-center text-2xl">04</p>
+             <p>Scalable business model allows quick and distributed deployement of power generation asset across the country</p>
+           </section>
+           <section className="p-2 w-full text-center md:w-2/6">
+             <p className="text-[#315EFB] font-bold text-center text-2xl">05</p>
+             <p>Performane Based Guarantee for project owner (the clients) as well as the investors</p>
+           </section>
+           <section className="p-2 w-full text-center md:w-2/6">
+             <p className="text-[#315EFB] font-bold text-center text-2xl">06</p>
+             <p>Hedge against increasing energy cost</p>
+           </section>
+         </section>
+        </section>
+        <section className="mt-8">
           <p className="text-center font-bold text-[#315EFB] text-4xl">
             The Easy Steps
           </p>
@@ -68,10 +101,10 @@ export default function HowItWorks() {
           </p>
         </section>
         <section className="text-left flex flex-wrap items-center">
-          <div className="w-full md:w-2/4 flex flex-col p-4 md:p-24">
+          <div className="w-full md:w-2/4 flex flex-col p-4 md:px-24">
             <div className="relative">
               <p className=" text-8xl font-extrabold text-[#f5f7ff]">01</p>
-              <h1 className="text-[#315EFB] text-center mt-6 font-bold text-3xl">
+              <h1 className="text-[#315EFB] text-center font-bold text-3xl">
                 Sign Up
               </h1>
               <p className="mt-6">

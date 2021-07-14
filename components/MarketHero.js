@@ -62,7 +62,7 @@ export default function MarketHero() {
               Marketplace
             </h1>
             <p className="font-medium mt-2 text-2xl md:text-4xl leading-10 dark:text-white">
-              Let’s find a solar project that’s perfect for you.
+            Find a solar project of your choice.
             </p>
             <p className="font-normal dark:text-white mt-4 text-lg md:text-xl leading-8">
               We are here to help you find right the place for your energy
