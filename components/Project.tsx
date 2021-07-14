@@ -30,9 +30,9 @@ export interface CProject{
   percent_sold : number
   name : string
   location : string
-  wattage : string
+  wattage : string 
   profit : number
-  cost_per_cell: string;
+  cost_per_cell: string
   duration : string
   img_url: string
 }
@@ -43,7 +43,7 @@ export default function Project({project}) {
     
     <a
       href={`/project/${_project.slug}`}
-      className="bg-white dark:bg-gray-700 w-full rounded-2xl p-6"
+      className=" w-full"
     >
       <figure className="relative h-48">
         <span className="absolute rounded top-0 right-0 mt-6 mr-6 bg-[#ff9b21] font-bold px-4 py-1 text-xs">

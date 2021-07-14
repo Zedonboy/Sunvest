@@ -3,8 +3,48 @@ import MarketHero from "../components/MarketHero";
 import SubscribeSection from "../components/SubscribeSection";
 import { Popover, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import ProjectList from "../components/ProjectList.tsx";
-import Project from "../components/Project.tsx"
+import ProjectList from "../components/ProjectList";
+import Project from "../components/Project"
+import { CProject } from "../components/Project";
+let ft : CProject = {
+  slug: "ww",
+  duration: "12",
+  name: "Aqua Safari Resort - 0.4MW | GRID TIED",
+  cost_per_cell: "20,000",
+  location: "Gwarimpa, Abuja",
+  profit: 15,
+  percent_sold: 44,
+  wattage: "60,000",
+  img_url: "/images/top1.png"
+
+}
+let st : CProject = {
+  slug: "ww",
+  duration: "12",
+  name: "Council for Scientific & Industrial Research (CSIR) - 100KWp | GRID-TIED",
+  cost_per_cell: "20,000",
+  location: "Lekki, Lagos.",
+  profit: 15,
+  percent_sold: 20,
+  wattage: "60,000",
+  img_url: "/images/top2.png"
+
+}
+
+let tt : CProject = {
+  slug: "ww",
+  duration: "12",
+  name: "Aqua Safari Resort - 0.4MW | GRID TIED",
+  cost_per_cell: "20,000",
+  location: "Gwarimpa, Abuja",
+  profit: 15,
+  percent_sold: 20,
+  wattage: "60,000",
+  img_url: "/images/top3.png"
+
+}
+
+let top = [ft, st, tt]
 export default function Market() {
   let [showFilter, setShowFilter] = useState(false);
   return (
@@ -181,7 +221,7 @@ export default function Market() {
           </section>
         </section>
 
-        <ProjectList />
+        <ProjectList projects={top} />
       </section>
       <section className="flex bg-[#f7f8fa] dark:bg-gray-800 flex-col px-2 md:px-8">
         <section className="flex justify-center">
@@ -225,7 +265,7 @@ export default function Market() {
           </section>
         </section>
 
-        <ProjectList />
+        {/* <ProjectList /> */}
       </section>
 
       {/* <section className="flex bg-[#f7f8fa] dark:bg-gray-800 flex-col px-2 md:px-8">

@@ -2,21 +2,21 @@ import { data } from "autoprefixer";
 import { useEffect, useState } from "react";
 import sunvestAPI from "../utils/APIlib";
 import Project from "./Project";
-export default function ProjectList() {
+export default function ProjectList({projects}) {
   const [page, setPage] = useState(1)
-  const [projects, setProjects] = useState([])
-  useEffect(() => {
-    let fetch = async () => {
-      let resp = await sunvestAPI.getProjects(page)
-      if(resp.ok){
-        let data = await resp.json()
-        setProjects(data.data)
-      }
-    }
+  //const [projects, setProjects] = useState([])
+  // useEffect(() => {
+  //   let fetch = async () => {
+  //     let resp = await sunvestAPI.getProjects(page)
+  //     if(resp.ok){
+  //       let data = await resp.json()
+  //       setProjects(data.data)
+  //     }
+  //   }
 
-    fetch()
+  //   fetch()
     
-  }, [page])
+  // }, [page])
   return (
     <section className="flex flex-col mt-12 md:flex-row">
       <div className="hidden md:flex items-center pr-6">
@@ -44,7 +44,7 @@ export default function ProjectList() {
       </div>
       <section className="flex overflow-auto px-4 pb-16 space-x-8">
         {projects.map((v, i) => (
-          <div key={i} className="w-full md:w-[20rem] flex-shrink-0">
+          <div key={i} className="w-full bg-white dark:bg-gray-700 rounded-2xl p-6 md:w-[20rem] flex-shrink-0">
           
           <Project project={v} />
         </div>

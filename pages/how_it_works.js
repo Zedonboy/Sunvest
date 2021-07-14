@@ -3,7 +3,7 @@ import DarkNavBar from "../components/DarkNavBar";
 import { Transition } from "@headlessui/react";
 import Layout from "../components/Layout";
 import { Fragment } from "react";
-import SubSection from "../components/SubscribeSection"
+import SubSection from "../components/SubscribeSection";
 export default function HowItWorks() {
   return (
     <Layout>
@@ -36,12 +36,15 @@ export default function HowItWorks() {
           <section className="w-full md:w-1/3 p-8">
             <p className="font-bold text-2xl">Who we are</p>
             <p className="text-sm mt-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci
-              lacinia gravida sed pulvinar imperdiet ultrices malesuada.
-              Dictumst sem amet id malesuada sollicitudin lorem. Arcu ut in
-              consequat cras ut. Tincidunt id scelerisque urna blandit lacus,
-              pulvinar sollicitudin. Non integer in eget mauris. Diam porta sit
-              id in pellentesque. Sit rhoncus in vel felis vitae sit.
+              We are a team of young professionals with divise fields of
+              experience in commercial solar engineering, investment finance,
+              software engineering, crowdfunding and power sector law. Our core
+              mission is to use our clean energy-fintech solution eradicate
+              poverty, provide clean and affordable energy to small and medium
+              businesses, provide decent work and economic growth, improve the
+              Nigerian Industry and Infratructure, which helps develop
+              sustainable cities and communities which support positive climate
+              actions.
             </p>
           </section>
           <section className="w-full md:w-1/3 p-8">
@@ -67,9 +70,7 @@ export default function HowItWorks() {
         <section className="text-left flex flex-wrap items-center">
           <div className="w-full md:w-2/4 flex flex-col p-4 md:p-24">
             <div className="relative">
-              <p className=" text-8xl font-extrabold text-[#f5f7ff]">
-                01
-              </p>
+              <p className=" text-8xl font-extrabold text-[#f5f7ff]">01</p>
               <h1 className="text-[#315EFB] text-center mt-6 font-bold text-3xl">
                 Sign Up
               </h1>
@@ -110,9 +111,7 @@ export default function HowItWorks() {
         <section className="text-left flex flex-wrap items-center">
           <div className="w-full md:w-2/4 flex flex-col p-4 md:p-24">
             <div className="relative">
-              <p className=" text-8xl font-extrabold text-[#f5f7ff]">
-                03
-              </p>
+              <p className=" text-8xl font-extrabold text-[#f5f7ff]">03</p>
               <h1 className="text-[#315EFB] text-center mt-6 font-bold text-3xl">
                 Earning A Profit
               </h1>
@@ -142,23 +141,26 @@ export default function HowItWorks() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisl
                   aliquam porttitor odio natoque commodo semper.
                 </p>
-                <button className="px-8 mt-12 rounded py-2 bg-[#28BC00] text-white">Sign Up Now</button>
+                <button className="px-8 mt-12 rounded py-2 bg-[#28BC00] text-white">
+                  Sign Up Now
+                </button>
               </div>
             </div>
             <div className="w-full md:w-1/2 flex-col md:flex-row flex items-center justify-center">
-            <p className=" text-8xl font-extrabold text-[#f5f7ff]">
-                04
-              </p>
-                <p className="font-bold text-3xl">Get Started</p>
-                
+              <p className=" text-8xl font-extrabold text-[#f5f7ff]">04</p>
+              <p className="font-bold text-3xl">Get Started</p>
             </div>
           </div>
           <figure className="hidden md:block absolute w-[200px] h-[300px] overflow-hidden rounded-md">
-              <img className="w-full h-full object-cover" alt="vfdv" src="/images/market-image.png"></img>
+            <img
+              className="w-full h-full object-cover"
+              alt="vfdv"
+              src="/images/market-image.png"
+            ></img>
           </figure>
         </section>
       </section>
-      <SubSection/>
+      <SubSection />
     </Layout>
   );
 }
