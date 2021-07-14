@@ -61,7 +61,7 @@ export default function HowItWorks() {
         </section>
         <section className="py-12 px-4 md:px-24">
           <p className="text-center font-bold text-[#315EFB] text-4xl">
-            What We Do
+          Our Value Proposition
           </p>
          <section className="w-full flex flex-wrap">
            <section className="p-2 w-full text-center md:w-2/6">

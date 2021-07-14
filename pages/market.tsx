@@ -45,6 +45,44 @@ let tt : CProject = {
 }
 
 let top = [ft, st, tt]
+let first : CProject = {
+  slug : "first",
+  img_url: "/images/1.png",
+  location : "Gwarimpa, Abuja",
+  name: "Aqua Safari Resort - 0.4MW | GRID TIED",
+  wattage: "60,000",
+  profit: 15,
+  duration: "12",
+  cost_per_cell: "20,000",
+  percent_sold: 20
+}
+
+let sec : CProject = {
+  slug: "sec",
+  img_url: "/images/2.png",
+  percent_sold: 44,
+  name: "Apartment Complex - 100KWp | HYBRID",
+  location: "Lekki, Lagos.",
+  wattage: "60,000",
+  profit: 15,
+  cost_per_cell: "20,000",
+  duration: "12",
+}
+
+let third : CProject = {
+  slug: "third",
+  img_url: "/images/2.png",
+  percent_sold: 44,
+  name: "Council for Scientific and Industrial Research (CSIR-CRI) - 0.25MW | GRID-TIED",
+  location: "Lekki, Lagos.",
+  wattage: "60,000",
+  profit: 15,
+  cost_per_cell: "20,000",
+  duration: "12",
+}
+const data = [
+  first, sec, third
+]
 export default function Market() {
   let [showFilter, setShowFilter] = useState(false);
   return (
@@ -265,7 +303,7 @@ export default function Market() {
           </section>
         </section>
 
-        {/* <ProjectList /> */}
+        <ProjectList projects={data}/>
       </section>
 
       {/* <section className="flex bg-[#f7f8fa] dark:bg-gray-800 flex-col px-2 md:px-8">
