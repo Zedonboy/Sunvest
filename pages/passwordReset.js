@@ -3,7 +3,7 @@ import DarkNavBar from "../components/DarkNavBar";
 import firebase from "firebase/app";
 import { fireBaseConfig } from "../config";
 
-export function PasswordReset() {
+export default function PasswordReset() {
   let [email, setEmail] = useState(null);
   let [error, setError] = useState(null);
   let [submitted, setSubmitted] = useState(false);
