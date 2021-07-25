@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import { useCallback, useEffect, useRef, useState } from "react";
 import sunvestAPI from "../utils/APIlib";
@@ -21,22 +20,24 @@ export default function Example() {
     [loginContract]
   );
   let [validationError, setValidationError] = useState(null);
-  let submitCb = useCallback((e) => {
-      firebase.auth().signInWithEmailAndPassword(loginContract.email, loginContract.password)
+  let submitCb = useCallback(
+    async (e) => {
+      firebase.auth(firebaseApp.current).signInWithEmailAndPassword(loginContract.email, loginContract.password)
       .then(userCred => {
         router.push("/dashboard")
       })
       .catch((err) => {
         setFirebaseError(err.message)
       })
-     
+      
       e.preventDefault();
     },
     [loginContract, router]
   );
 
   useEffect(() => {
-    if(firebase.app.length === 0) firebase.initializeApp(fireBaseConfig)
+    let app = firebase.initializeApp(fireBaseConfig)
+    firebaseApp.current = app
   }, [])
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function Example() {
             alt="Workflow"
           />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            Sign in to your Admin account
           </h2>
         </div>
         {firebaseError ? (
@@ -137,7 +138,7 @@ export default function Example() {
 
             <div className="text-sm">
               <a
-                href="/passwordReset"
+                href="#"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
                 Forgot your password?

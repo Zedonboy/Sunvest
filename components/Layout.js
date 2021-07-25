@@ -2,6 +2,8 @@
 /* eslint-disable @next/next/no-css-tags */
 import Head from "next/head";
 import { useEffect } from "react";
+import firebase from "firebase/app";
+import { fireBaseConfig } from "../config";
 /* eslint-disable @next/next/no-img-element */
 export default function Layout({ children }) {
   useEffect(() => {
@@ -15,6 +17,7 @@ export default function Layout({ children }) {
         console.log('Registration failed with ' + error);
       });
     }
+    if(firebase.app.length === 0) firebase.initializeApp(fireBaseConfig)
   }, [])
   return (
     <>

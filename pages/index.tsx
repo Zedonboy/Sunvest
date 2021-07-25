@@ -10,78 +10,103 @@ import SubscribeSection from "../components/SubscribeSection";
 import { url, headers } from "../utils/APIlib";
 import useSWR from "swr";
 import { CProject } from "../components/Project";
+import { useCallback, useEffect, useState } from "react";
+import firebase from "firebase/app";
+import "firebase/firestore";
 const fetcher = (url) =>
   fetch(url, {
     headers,
     method: "GET",
   }).then((res) => res.json());
 
-  const scrollLeft = (id) => {
-    //let id = catName.replace(" ", "-").toLowerCase().trim();
-    let elm = document.querySelector("#"+id);
-    if (elm) {
-      let scrollOffset = window.innerWidth;
-      elm.scrollBy({
-        top: 0,
-        left: scrollOffset,
-        behavior: "smooth",
-      });
-    }
-  };
-  
-  const scrollRight = (id) => {
-    
-    let elm = document.querySelector("#"+id);
-    if (elm) {
-      let scrollOffset = window.innerWidth;
-      elm.scrollBy({
-        top: 0,
-        left: -scrollOffset,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  let first : CProject = {
-    slug : "first",
-    img_url: "/images/1.png",
-    location : "Gwarimpa, Abuja",
-    name: "Aqua Safari Resort - 0.4MW | GRID TIED",
-    wattage: "60,000",
-    profit: 15,
-    duration: "12",
-    cost_per_cell: "20,000",
-    percent_sold: 20
+const scrollLeft = (id) => {
+  //let id = catName.replace(" ", "-").toLowerCase().trim();
+  let elm = document.querySelector("#" + id);
+  if (elm) {
+    let scrollOffset = window.innerWidth;
+    elm.scrollBy({
+      top: 0,
+      left: scrollOffset,
+      behavior: "smooth",
+    });
   }
+};
 
-  let sec : CProject = {
-    slug: "sec",
-    img_url: "/images/2.png",
-    percent_sold: 44,
-    name: "Apartment Complex - 100KWp | HYBRID",
-    location: "Lekki, Lagos.",
-    wattage: "60,000",
-    profit: 15,
-    cost_per_cell: "20,000",
-    duration: "12",
+const scrollRight = (id) => {
+  let elm = document.querySelector("#" + id);
+  if (elm) {
+    let scrollOffset = window.innerWidth;
+    elm.scrollBy({
+      top: 0,
+      left: -scrollOffset,
+      behavior: "smooth",
+    });
   }
+};
 
-  let third : CProject = {
-    slug: "third",
-    img_url: "/images/2.png",
-    percent_sold: 44,
-    name: "Council for Scientific and Industrial Research (CSIR-CRI) - 0.25MW | GRID-TIED",
-    location: "Lekki, Lagos.",
-    wattage: "60,000",
-    profit: 15,
-    cost_per_cell: "20,000",
-    duration: "12",
-  }
-  const data = [
-    first, sec, third
-  ]
+let first: CProject = {
+  slug: "first",
+  img_url: "/images/1.png",
+  location: "Gwarimpa, Abuja",
+  name: "Aqua Safari Resort - 0.4MW | GRID TIED",
+  wattage: "60,000",
+  profit: 15,
+  duration: "12",
+  cost_per_cell: "20,000",
+  percent_sold: 20,
+};
+
+let sec: CProject = {
+  slug: "sec",
+  img_url: "/images/2.png",
+  percent_sold: 44,
+  name: "Apartment Complex - 100KWp | HYBRID",
+  location: "Lekki, Lagos.",
+  wattage: "60,000",
+  profit: 15,
+  cost_per_cell: "20,000",
+  duration: "12",
+};
+
+let third: CProject = {
+  slug: "third",
+  img_url: "/images/2.png",
+  percent_sold: 44,
+  name: "Council for Scientific and Industrial Research (CSIR-CRI) - 0.25MW | GRID-TIED",
+  location: "Lekki, Lagos.",
+  wattage: "60,000",
+  profit: 15,
+  cost_per_cell: "20,000",
+  duration: "12",
+};
+const data = [];
 export default function Home() {
-  //const { data, error } = useSWR(url, fetcher);
+  let [featuredProjects, setF_Projects] = useState(data);
+  let [loadingProjects, setLoadingProjects] = useState(true);
+  let [loadingProjectError, setLoadingProjectError] = useState(null);
+  let getFeaturedProjects = useCallback(() => {
+    let db = firebase.firestore();
+    db.collection("projects")
+      .where("featured", "==", true)
+      .limit(9)
+      .get()
+      .then((qs) => {
+        let projects = [];
+        debugger;
+        qs.forEach((rslt) => {
+          projects.push({ id: rslt.id, ...rslt.data() });
+        });
+        setF_Projects(projects);
+        setLoadingProjects(false);
+      })
+      .catch((err) => {
+        setLoadingProjectError("Error when retriving featured project");
+        setLoadingProjects(false);
+      });
+  }, []);
+  useEffect(() => {
+    getFeaturedProjects();
+  });
   return (
     <Layout>
       <Hero />
@@ -181,67 +206,126 @@ export default function Home() {
         <h1 className="text-blue-600 text-center mt-14 font-bold text-lg">
           Explore Our Top Selling Projects
         </h1>
-        <ul className="hidden lg:flex space-x-16 mt-12 overflow-auto market-cat">
-          <li>
-            <button>Commercial Projects</button>
-          </li>
-          <li>
-            <button>Capital Projects</button>
-          </li>
-          <li>
-            <button>Industrial Projects</button>
-          </li>
-          <li>
-            <button>Electrification Projects</button>
-          </li>
-        </ul>
-        <section className="hidden lg:flex mt-8">
-          <div className="flex items-center pr-6">
-            <button className="rounded-full w-16 h-16 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
+
+        {loadingProjects ? (
+          <div className="h-[45vh] w-full flex justify-center items-center">
+            <svg
+              className="animate-spin text-blue-500 h-12 w-12"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
                 stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
           </div>
-          <section className="flex space-x-8">
-            {data.map((p, i) => (
-              
-              <div key={i} className="md:w-[20rem] bg-white p-6 rounded-2xl">
-                
-                <Project project={p} />
+        ) : null}
+
+        {(function () {
+          if (loadingProjects == false && featuredProjects.length > 0) {
+            return (
+              <>
+                <ul className="hidden lg:flex space-x-16 mt-12 overflow-auto market-cat">
+                  <li>
+                    <button>Commercial Projects</button>
+                  </li>
+                  <li>
+                    <button>Capital Projects</button>
+                  </li>
+                  <li>
+                    <button>Industrial Projects</button>
+                  </li>
+                  <li>
+                    <button>Electrification Projects</button>
+                  </li>
+                </ul>
+                <section className="hidden lg:flex mt-8">
+                  <div className="flex items-center pr-6">
+                    <button className="rounded-full w-16 h-16 dark:text-white dark:bg-gray-700 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M15 19l-7-7 7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <section className="flex space-x-8">
+                    {featuredProjects.map((p, i) => (
+                      <div
+                        key={i}
+                        className="md:w-[20rem] bg-white p-6 rounded-2xl"
+                      >
+                        <Project project={p} />
+                      </div>
+                    ))}
+                  </section>
+                  <div className="flex items-center pl-6">
+                    <button className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </section>
+              </>
+            );
+          } else if (featuredProjects.length === 0 && !loadingProjectError) {
+            return (
+              <div className="h-[45vh] w-full flex flex-col justify-center items-center">
+                <p className="text-3xl text-blue-500">
+                  Featured Project is Empty
+                </p>
+                <p className="mt-4 text-blue-500 text-sm font-light">
+                  Contact Admin
+                </p>
               </div>
-            ))}
-          </section>
-          <div className="flex items-center pl-6">
-            <button className="rounded-full dark:text-white dark:bg-gray-700 w-16 h-16 text-gray-500 bg-[#dfe5f5] flex justify-center items-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-8 w-8"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
+            );
+          } else return null;
+        })()}
+
+        {loadingProjectError ? (
+          <div className="h-[45vh] w-full flex flex-col justify-center items-center">
+            <p className="text-3xl text-blue-500">{loadingProjectError}</p>
+            <button
+              onClick={(e) => {
+                setLoadingProjectError(null);
+                getFeaturedProjects();
+              }}
+              className="mt-4 text-blue-500 text-xl font-light"
+            >
+              Retry
             </button>
           </div>
-        </section>
+        ) : null}
 
         <Link passHref href="/market">
           <a className="flex mt-10 text-blue-600 font-medium">
@@ -271,28 +355,49 @@ export default function Home() {
         <h1 className="font-semibold mt-12 text-blue-600 text-2xl text-center">
           Working with a diverse global partners
         </h1>
-        <section id="partners-section" className="flex p-12 space-x-8 mt-10 overflow-x-auto">
+        <section
+          id="partners-section"
+          className="flex p-12 space-x-8 mt-10 overflow-x-auto"
+        >
           <figure className="flex-shrink-0 w-[270px] overflow-hidden bg-[#f8f8f8] h-28 flex justify-center items-center">
-            <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/binance.jpg" />
+            <img
+              className="w-full h-full object-cover"
+              alt="vmkfdmvkd"
+              src="/images/partners/binance.jpg"
+            />
           </figure>
           {/* <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
             <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/detail.png" />
           </figure> */}
           <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
-            <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/fate.png" />
+            <img
+              className="w-full h-full object-cover"
+              alt="vmkfdmvkd"
+              src="/images/partners/fate.png"
+            />
           </figure>
           <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
-            <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/netherlands.jpg" />
+            <img
+              className="w-full h-full object-cover"
+              alt="vmkfdmvkd"
+              src="/images/partners/netherlands.jpg"
+            />
           </figure>
           <figure className="flex-shrink-0 w-[270px] bg-[#f8f8f8] h-28 flex justify-center items-center">
-            <img className="w-full h-full object-cover" alt="vmkfdmvkd" src="/images/partners/orange.png" />
+            <img
+              className="w-full h-full object-cover"
+              alt="vmkfdmvkd"
+              src="/images/partners/orange.png"
+            />
           </figure>
         </section>
         <section className=" mt-8 flex justify-center space-x-2">
-          <button onClick={e => {
-            scrollRight("partners-section")
-            
-          }} className="text-gray-300">
+          <button
+            onClick={(e) => {
+              scrollRight("partners-section");
+            }}
+            className="text-gray-300"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -309,9 +414,12 @@ export default function Home() {
             </svg>
           </button>
           <p>1/2</p>
-          <button onClick={e => {
-            scrollLeft("partners-section")
-          }} className="text-blue-600">
+          <button
+            onClick={(e) => {
+              scrollLeft("partners-section");
+            }}
+            className="text-blue-600"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"

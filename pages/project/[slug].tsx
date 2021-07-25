@@ -6,6 +6,8 @@ import SubscribeSection from "../../components/SubscribeSection";
 import DarkNavBar from "../../components/DarkNavBar";
 import { IProject } from "../../components/Project";
 import sunvestAPI from "../../utils/APIlib";
+import firebase from "firebase/app";
+import "firebase/firestore";
 export default function ProjectDetails({ project }) {
   let _project = project as IProject;
   return (
@@ -187,13 +189,25 @@ export default function ProjectDetails({ project }) {
 export async function getServerSideProps(ctx) {
   let slug = ctx.params.slug;
   let project;
-  
-  let resp = await sunvestAPI.getSingleProject(slug)
 
-  if (resp.ok) {
-    let data = await resp.json();
-    project = data.data;
+  let db = firebase.firestore();
+  let qs = await db
+    .collection("projects")
+    .where("slug", "==", slug)
+    .limit(1)
+    .get();
+  
+  if(qs.size > 0){
+    project = qs.docs[0].data()
+  } else return {
+    notFound : true
   }
+  // let resp = await sunvestAPI.getSingleProject(slug);
+
+  // if (resp.ok) {
+  //   let data = await resp.json();
+  //   project = data.data;
+  // }
   return {
     props: {
       project,

@@ -1,11 +1,34 @@
 import DarkNavBar from "../components/DarkNavBar";
-import Link from "next/link"
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+
 export default function ThankYou() {
+  let [count, setCount] = useState(5);
+  let td = useRef(null)
+  let router = useRouter();
+  useEffect(() => {
+    let td = setInterval(() => {
+      if (count === 0) {
+        clearInterval(td)
+        router.push("/dashboard")
+        return
+      }
+      let nCount = count - 1;
+      setCount(nCount);
+    }, 1000);
+    return () => clearInterval(td)
+  }, [count, router]);
   return (
     <main className="flex h-screen flex-col bg-purple-100">
       <DarkNavBar />
       <section className="h-[75vh] space-y-4 flex flex-col justify-center items-center">
-        <h1 className="text-cpurple font-bold text-3xl">Thank you for registering</h1>
+        <div className="rounded-full border text-green-400 border-green-400 w-12 h-12 flex justify-center items-center">
+          <p className="text-green-400 text-xl">{count}</p>
+        </div>
+        <h1 className="text-cpurple font-bold text-3xl">
+          Thank you for registering
+        </h1>
         <div className="h-24 w-24 rounded-full border border-green-400 p-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -22,9 +45,13 @@ export default function ThankYou() {
             />
           </svg>
         </div>
-        <p className="text-cpurple font-light text-lg">Check Your Email for Verification</p>
-        <Link passHref href="/signin">
-        <a className="shadow rounded mt-2 px-5 py-2 text-white bg-cpurple">Sign In</a>
+        <p className="text-cpurple font-light text-lg">
+          Check Your Email for Verification
+        </p>
+        <Link passHref href="/dashboard">
+          <a className="shadow rounded mt-2 px-5 py-2 text-white bg-cpurple">
+            Sign In
+          </a>
         </Link>
       </section>
     </main>

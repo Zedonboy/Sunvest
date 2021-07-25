@@ -1,18 +1,23 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 /* eslint-disable @next/next/no-img-element */
 import { Popover, Transition } from "@headlessui/react";
-import { Fragment, useCallback, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import SunVestAPI from "../utils/APIlib.ts";
-import {set} from "idb-keyval"
+//import SunVestAPI from "../utils/APIlib.ts";
+import firebase from "firebase/app";
+import { fireBaseConfig } from "../config";
+require("firebase/auth");
+require("firebase/firestore");
+
 export default function Hero() {
   let router = useRouter();
   let [dark, setDark] = useState(false);
   let [registerContract, setRegisterContract] = useState({});
   let [loading, setLoading] = useState(false);
   let [validationError, setValidationError] = useState(null);
+  let firestore = useRef(null);
   let cb = useCallback(
     (e) => {
       setRegisterContract({
@@ -25,25 +30,40 @@ export default function Hero() {
 
   let submitCB = useCallback(
     async (e) => {
-      e.preventDefault();
-      setLoading(true);
-      set("user", registerContract).then(v => {
-        router.push("/thank_you")
-      })
-      // let response = await SunVestAPI.registerUser(registerContract);
-      // if (response.ok) {
-      //   let data = await response.json();
-      //   if (data.status && data.status === "failed") {
-      //     setValidationError(data.validation_errors);
-      //   } else {
-      //     router.push("/thank_you");
-      //   }
-      // }
-      setLoading(false);
-      //alert("Error from server");
+      e.preventDefault()
+      setLoading(true)
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(
+          registerContract.email,
+          registerContract.password
+        )
+        .then((userCred) => {
+          userCred.user.updateProfile({
+            displayName: registerContract.firstName
+          })
+          firebase.firestore().collection("investors").add({
+            firstName: registerContract.firstName,
+            lastName: registerContract.lastName,
+            email: registerContract.email,
+            phone: registerContract.phone,
+          }).then(d => {
+            setLoading(false)
+            let user = userCred.user
+            router.push("/thank_you")
+            // user.sendEmailVerification().then(e => {
+              
+            // })
+            
+          }); 
+        }).catch(err => {
+          setValidationError({general : err.message})
+        });
+     
     },
     [registerContract, router]
   );
+
   return (
     <section className="dark:bg-gray-800 bg-cpurple p-2 md:px-32 min-h-screen pb-24">
       <Head>{dark ? <meta name="theme-color" content="#1f2937" /> : null}</Head>
@@ -91,19 +111,13 @@ export default function Hero() {
                 <ul className="flex side-nav flex-col items-center space-y-4">
                   <li>
                     <Link passHref href="/">
-                    <a>
-                      Home
-                    </a>
+                      <a>Home</a>
                     </Link>
-                    
                   </li>
                   <li>
                     <Link passHref href="/how_it_works">
-                    <a>
-                      How it works
-                    </a>
+                      <a>How it works</a>
                     </Link>
-                    
                   </li>
                   <li>
                     <a className="" href="/home">
@@ -124,7 +138,6 @@ export default function Hero() {
               </Popover.Panel>
             </Transition>
             <nav className="flex py-4 justify-between">
-            
               <a href="/" className="flex items-center space-x-3">
                 <span>
                   <img
@@ -332,6 +345,10 @@ export default function Hero() {
                 <p className="font-extrabold text-2xl text-center">
                   Get started now
                 </p>
+                {validationError?.general ? (
+                  <span className="bg-red-100 rounded-md p-4 text-sm text-red-500 border border-red-500">{validationError?.general}</span>
+                ) : null}
+                <span></span>
                 <form
                   onSubmit={submitCB}
                   className="flex flex-col mt-8 space-y-5"
