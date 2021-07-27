@@ -17,7 +17,7 @@ export default function Layout({ children }) {
         console.log('Registration failed with ' + error);
       });
     }
-    if(firebase.app.length === 0) firebase.initializeApp(fireBaseConfig)
+    if(firebase.apps.length === 0) firebase.initializeApp(fireBaseConfig)
   }, [])
   return (
     <>

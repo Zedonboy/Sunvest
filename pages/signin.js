@@ -36,7 +36,7 @@ export default function Example() {
   );
 
   useEffect(() => {
-    if(firebase.app.length === 0) firebase.initializeApp(fireBaseConfig)
+    if(firebase.apps.length === 0) firebase.initializeApp(fireBaseConfig)
   }, [])
 
   useEffect(() => {

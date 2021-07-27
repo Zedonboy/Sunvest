@@ -64,6 +64,9 @@ export default function Hero() {
     [registerContract, router]
   );
 
+  useEffect(()=> {
+    if(firebase.apps.length === 0) firebase.initializeApp(fireBaseConfig)
+  }, [])
   return (
     <section className="dark:bg-gray-800 bg-cpurple p-2 md:px-32 min-h-screen pb-24">
       <Head>{dark ? <meta name="theme-color" content="#1f2937" /> : null}</Head>

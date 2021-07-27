@@ -13,6 +13,7 @@ import { CProject } from "../components/Project";
 import { useCallback, useEffect, useState } from "react";
 import firebase from "firebase/app";
 import "firebase/firestore";
+import { fireBaseConfig } from "../config";
 const fetcher = (url) =>
   fetch(url, {
     headers,
@@ -105,6 +106,7 @@ export default function Home() {
       });
   }, []);
   useEffect(() => {
+    if(firebase.apps.length === 0) firebase.initializeApp(fireBaseConfig)
     getFeaturedProjects();
   });
   return (
